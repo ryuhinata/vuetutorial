@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Vue</title>
+</head>
+<body>
+	<div id="app">
+
+	<div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+	     class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }<br>
+	     &nbsp;This element's class is "static active" from data
+	</div>
+	<br>
+
+	<div v-bind:class="classObject">
+		v-bind:class="classObject"<br>
+	    &nbsp;This element's class is "text-danger" from computed
+	</div>
+	<br>
+
+	<div v-bind:class="[activeClass, errorClass]">
+		v-bind:class="[activeClass, errorClass]"<br>
+		&nbsp;This element's class is "active text-danger"<br>
+		&nbsp;We can pass an array to v-bind:class to apply a list of classes:
+	</div>
+	<br>
+
+	<div v-bind:class="[isActive ? activeClass : '', errorClass]">
+	 	v-bind:class="[isActive ? activeClass : '', errorClass]"<br>
+		&nbsp;This element's class is "active text-danger"<br>
+		&nbsp;toggle a class in the list conditionally, you can do it with a ternary expression:
+	</div>
+	<br>
+
+	<div v-bind:class="[{ active: isActive }, errorClass]">
+		v-bind:class="[{ active: isActive }, errorClass]"<br>
+		  &nbsp;This element's class is "active text-danger"<br>
+		  &nbsp;Another syntax for above
+	</div>
+
+	</div>
+	<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+
+	<script>
+		//https://vuejs.org/v2/guide/class-and-style.html
+
+		var error = new Error();
+		error.type = 'fatal';
+
+		new Vue({
+			el: '#app',
+			data: {
+				isActive: true,
+  				hasError: false,
+				error: error,
+				//error: null,
+				activeClass: 'active',
+  				errorClass: 'text-danger'
+			},
+			computed: {
+			  classObject: function () {
+			    return {
+			      active: this.isActive && !this.error, 
+			      'text-danger': this.error && this.error.type === 'fatal',
+			    }
+			  }
+			}
+		})
+	</script>
+
+</body>
+</html>

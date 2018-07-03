@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div id="app">
+
+		<p>Quantity: <input type="text" v-model="quantity" autofocus></p>
+		<p>Price: <input type="text" v-model="price"></p>
+
+		<p>Total: {{ total }}</p>
+	</div>
+
+	<script src="https://unpkg.com/vue@2.5.0/dist/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				quantity: null,
+				price: null
+			},
+			computed: {
+				total: function() {
+					return this.quantity * this.price;
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

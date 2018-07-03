@@ -1,0 +1,26 @@
+
+<div id="app">
+	<button v-on:click='seen=1'>Show</button>
+	<button v-on:click='seen=0'>Hide</button>
+
+	<p v-if="seen">Now you see me</p>
+
+	<form v-on:submit.prevent="onSubmit"></form>
+		<input type='text'>
+		<br>
+		This form will not be submitted
+		<br>
+		<button type='submit'>Submit</button>
+	</form>	
+</div>
+
+<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+
+<script>
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			seen: 1
+		}
+	})
+</script>

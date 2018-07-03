@@ -1,0 +1,25 @@
+<div id="app">
+  Message: {{ message }}
+  <br><br>
+
+  Greeting: {{ greeting }}
+  <br>
+  From: {{ greeting.from }}
+  <br>
+  Message: {{ greeting.message }}
+</div>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<script>
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	    message: 'Hello Vue!',
+	    greeting: {
+	    	from: "Luffy",
+	    	message: "Knock knock"
+	    }
+	  }
+	})
+</script>

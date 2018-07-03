@@ -1,0 +1,26 @@
+Due to limitations in JavaScript, Vue cannot detect the following changes to an array:
+var vm = new Vue({
+  data: {
+    items: ['a', 'b', 'c']
+  }
+})
+vm.items[1] = 'x' // is NOT reactive
+vm.items.length = 2 // is NOT reactive
+
+Vue.set(vm.items, indexOfItem, newValue)
+vm.$set(vm.items, indexOfItem, newValue)
+vm.items.splice(indexOfItem, 1, newValue)
+
+var vm = new Vue({
+  data: {
+    userProfile: {
+      name: 'Anika'
+    }
+  }
+})
+vm.userProfile.age = 27; //not reactive
+
+Vue.set(vm.userProfile, 'age', 27)
+vm.$set(vm.userProfile, 'age', 27)
+Vue.delete(vm.userProfile, 'age')
+vm.$delete(vm.userProfile, 'age')

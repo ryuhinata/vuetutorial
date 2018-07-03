@@ -1,0 +1,22 @@
+
+<div id="app">
+	<ul id="example-1">
+		<li v-for="item in items">
+			<input type="text" v-model="item.name">
+		</li>
+	</ul>
+</div>
+
+<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+
+<script>
+	var vm = new Vue({
+		el: '#example-1',
+		data: {
+			items: [
+				{ name:'Foo', price:1 },
+				{ name:'Bar', price:2 }
+			]
+		}
+	})
+</script>

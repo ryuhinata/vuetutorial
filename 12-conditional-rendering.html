@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Vue</title>
+</head>
+<body>
+	<div id="app">
+		<h1 v-if="answer">Yes</h1>
+		<h1 v-else>No</h1>
+
+		<template v-if="answer">
+			<h1>Title</h1>
+			<p>Paragraph 1</p>
+			<p>Paragraph 2</p>
+		</template>
+
+		<div v-if="Math.random() > 0.5">
+			Now you see me
+		</div>
+		<div v-else>
+			Now you don't
+		</div>
+		<br>
+
+		<!--new in 2.1-->
+		<div v-if="type === 'A'">
+			A
+		</div>
+		<div v-else-if="type === 'B'">
+			B
+		</div>
+		<div v-else-if="type === 'C'">
+			C
+		</div>
+		<div v-else>
+			Not A/B/C
+		</div>
+	</div>
+	<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+
+	<script>
+		new Vue({
+			//https://vuejs.org/v2/guide/conditional.html#v-if
+			el: '#app',
+			data: {
+				answer: true,
+				type: 'C'
+			}
+		})
+	</script>
+
+</body>
+</html>

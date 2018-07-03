@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Vue</title>
+</head>
+<body>
+	<div id="app">
+		Open console
+	</div>
+	<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+
+	<script>
+		//https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks
+		var vm = new Vue({
+		  data: {
+		    a: 1
+		  },
+		  created: function () {
+		    //have reactive properties, no DOM
+		    //usually send api to backend for data
+		    console.log('Created');
+		  },
+		  mounted: function() {
+	  		//after DOM has been rendered
+		    console.log('Mounted');
+		  }
+		})
+	</script>
+
+</body>
+</html>
