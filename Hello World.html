@@ -3,18 +3,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
 	<title>Vue</title>
 </head>
 <body>
+
 	<div id="app">
 		Message: {{message}}
 		<br><br>
 		Greeting: {{greeting.from}}
 		<br><br>
 		Message: {{greeting.message}}
+		<br><br>
+		
 	</div>
 	
-	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<div id="abc">
+		<a v-bind:href="url"> {{message}} </a>
+	</div>
+	
 
 	<script>
 		var vm = new Vue({
@@ -25,6 +32,13 @@
 					from: "Luffy",
 					message: "Knock Knock"
 				}
+			}
+		});
+		var a = new Vue({
+			el: '#abc',
+			data: {
+				message:"Link",
+				url:"b2cci.coreop.net"
 			}
 		})
 	</script>
