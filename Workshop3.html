@@ -1,0 +1,36 @@
+<!Doctype html>
+<html>
+	<HEAD>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</HEAD>
+	<BODY>
+		<div id="app">
+			Normal Vue
+			<ul>
+				<li v-for="todo in todos">{{todo.text}}</li>
+			</ul>
+			<br/>
+			Component Vue
+			<ul>
+				<todo-item v-for="todo in todos" v-bind:abc="todo"></todo-item>
+			</ul>
+		</div>
+		<Script>
+			Vue.component('todo-item',{
+				props: ["abc"],
+				template: '<li>{{abc.text}}</li>'
+			})
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					todos: [
+					{text:"Buy Insurance"},
+					{text:"Pay Bills"}]
+				}
+			})
+
+		</Script>
+	</BODY>
+
+
+</html>

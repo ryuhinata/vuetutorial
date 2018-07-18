@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+
+	</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app" class="container">
+		<h1>Register!</h1>
+
+		<form @submit.prevent="onSubmit">
+			<div class="form-group">
+				<label for="countryOfResidence">Country of Residence</label>
+				<select v-model="form.countryOfResidence" @blur="focused.showCountryOfResidence=true" id="countryOfResidence" class="form-control">
+					<option v-for="value in countries" v-bind:value=value.countryId>
+						{{ value.countryName }}
+					</option>
+				</select>
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.showCountryOfResidence && !validCountryOfResidence">
+				- Select the country you currently reside in
+			</div>
+
+			<div class="form-group">
+				<label for="loginName">Login Name</label>
+				<input type="text" v-model="form.loginName" @blur="focused.showLoginName = true" class="form-control" id="loginName">
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.showLoginName && !validLoginName">
+				- 5-14 characters<br>
+				- Start with a letter<br>
+				- Use only letters (a-z) and numbers (0-9)
+			</div>
+
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" v-model="form.password" @blur="focused.password = true" class="form-control" id="password">
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.password && !validPassword">
+				- 8-15 characters<br>
+				- Use both uppercase or lowercase letters (a-z) and numbers (0-9)<br>
+				- Must not contain your login name
+			</div>
+
+			<div class="form-group">
+				<label for="password">Re-enter Password</label>
+				<input type="password" v-model="form.reEnterPassword" @blur="focused.reEnterPassword = true" class="form-control" id="password">
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.reEnterPassword && !validReEnterPassword">
+				- Must match password above
+			</div>
+
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				// countries:{
+				// 	"":"",
+				// 	"MY":"Malaysia",
+				// 	"ID":"Indonesia"
+				// },
+				countries:[
+					{"countryId":"ID", "countryName":"Indonesia"},
+					{"countryId":"MY", "countryName":"Malaysia"}
+					],
+				password:"",
+				reEnterPassword:"",
+				focused:{
+					showCountryOfResidence: false,
+					showLoginName:false,
+					password:false,
+					reEnterPassword:false
+				},
+				form:{
+					countryOfResidence: "",
+					loginName:"",
+					password:"",
+					reEnterPassword:""
+				}
+			},
+			computed: {
+				validCountryOfResidence : function(){
+					return this.form.countryOfResidence !== "";
+				},
+				validLoginName : function(){
+					//regex for contain alphabets and numbers
+					var regex = /^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{5,14}$/i;
+        			return regex.test(this.form.loginName);
+					
+				},
+				validPassword : function(){
+					//regex for contain alphabet, number, special char
+					var regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$/;
+        			return regex.test(this.form.password);
+				},
+				validReEnterPassword : function(){
+					console.log('v' + this.password);
+					console.log('v' + this.reEnterPassword);
+					return this.form.password == this.reEnterPassword;
+				}
+			}
+
+						
+
+		});
+	</script>
+</body>
+</html>
