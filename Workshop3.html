@@ -12,21 +12,38 @@
 			<br/>
 			Component Vue
 			<ul>
-				<todo-item v-for="todo in todos" v-bind:abc="todo"></todo-item>
+				<todo-item v-for="todo in todos" v-bind:abc="todo" v-bind:key="todo.id" v-on:complete="markAsComplete"></todo-item>
 			</ul>
 		</div>
 		<Script>
 			Vue.component('todo-item',{
 				props: ["abc"],
-				template: '<li>{{abc.text}} - {{abc.completed? "Completed" : "Incomplete"}}</li>'
+				template: `<li>{{abc.text}} - 
+					<span v-if="abc.completed">Completed</span>
+					<span v-else @click="complete(abc)">Mark as complete</span>
+					</li>`,
+				methods:{
+					complete: function(todo) {
+						this.$emit("complete", todo.id)
+					}
+				}
 			})
 			var vm = new Vue({
 				el: '#app',
 				data: {
 					todos: [
-					{text:"Buy Insurance", completed: false},
-					{text:"Pay Bills", completed: false},
-					{text:"Walk the Dog", completed: true}]
+					{id:1,text:"Buy Insurance", completed: false},
+					{id:2,text:"Pay Bills", completed: false},
+					{id:3,text:"Walk the Dog", completed: true}]
+				},
+				methods: {
+					markAsComplete: function(id){
+						for(var key in this.todos){
+							if(this.todos.hasOwnProperty(key) && this.todos[key].id == id){
+								this.todos[key].completed = true;
+							}
+						}
+					}
 				}
 			})
 
