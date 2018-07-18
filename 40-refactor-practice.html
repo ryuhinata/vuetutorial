@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+
+	</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+	<div id="app" class="container">
+		<h1>Register</h1>
+
+		<form @submit.prevent="onSubmit">
+			<div class="form-group">
+				<label for="countryOfResidence">Country of Residence</label>
+				<select v-model="form.countryOfResidence" @blur="focused.countryOfResidence = true" id="countryOfResidence" class="form-control">
+					<option v-for="(name, key) in countries" :value="key">
+						{{ name }}
+					</option>
+				</select>
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.countryOfResidence && !validCountryOfResidence">
+				- Select the country you currently reside in
+			</div>
+
+			<div class="form-group">
+				<label for="loginName">Login Name</label>
+				<input type="text" v-model="form.loginName" @blur="focused.loginName = true" class="form-control" id="loginName">
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.loginName && !validLoginName">
+				- 5-14 characters<br>
+				- Start with a letter<br>
+				- Use only letters (a-z) and numbers (0-9)
+			</div>
+
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" v-model="form.password" @blur="focused.password = true" class="form-control" id="password">
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.password && !validPassword">
+				- 8-15 characters<br>
+				- Use both uppercase or lowercase letters (a-z) and numbers (0-9)<br>
+				- Must not contain your login name
+			</div>
+
+			<div class="form-group">
+				<label for="password">Re-enter Password</label>
+				<input type="password" v-model="form.reEnterPassword" @blur="focused.reEnterPassword = true" class="form-control" id="password">
+			</div>
+
+			<div class="alert alert-danger" v-show="focused.reEnterPassword && !validReEnterPassword">
+				- Must match password above
+			</div>
+
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				countries: {
+					"": "",
+					"MY": "Malaysia",
+					"ID": "Indonesia",
+					"VN": "Vietnam",
+					"CN": "China",
+					"TH": "Thailand"
+				},
+				focused: {
+					countryOfResidence: false,
+					loginName: false,
+					password: false,
+					reEnterPassword: false
+				},
+				form: {
+					countryOfResidence: "",
+					loginName: "",
+					password: "",
+					reEnterPassword: ""
+				}
+			},
+			computed: {
+				validCountryOfResidence: function() {
+					return this.countryOfResidence != "";
+				},
+				validLoginName: function() {
+					return this.loginNameLength
+						&& this.loginNameStartWithAlphabet
+						&& this.loginNameContainAlphabetsAndNumbers;
+				},
+				loginNameLength: function() {
+					return this.checkLength(this.form.loginName, 5, 14);
+				},
+				loginNameStartWithAlphabet: function() {
+					var regex = /^[a-zA-Z]+.*$/i;
+				    return regex.test(this.form.loginName);
+				},
+				loginNameContainAlphabetsAndNumbers: function() {
+					var regex = /^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{5,14}$/i;
+    				return regex.test(this.form.loginName);
+				},
+				validPassword: function() {
+					return this.passwordLength 
+						&& this.passwordContainAlphabetsNumbersSpecialChars
+						&& this.doesNotContainLoginName;
+				},
+				passwordContainAlphabetsNumbersSpecialChars: function() {
+					var regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$/;
+				    return regex.test(this.form.password);
+				},
+				passwordLength: function() {
+					return this.checkLength(this.form.password, 8, 15);
+				},
+				doesNotContainLoginName: function() {
+					return this.form.password.indexOf(this.form.loginName) >= 0 == false;
+				},
+				validReEnterPassword: function() {
+					return this.form.password == this.form.reEnterPassword;
+				},
+			},
+			methods: {
+				onSubmit() {
+					alert('submitted');
+				},
+				checkLength(value, min, max) {
+				    if (value.length < min || value.length > max) {
+				        return false;
+				    }
+				    return true;
+				}
+			}
+		})
+	</script>
+</body>
+</html>
