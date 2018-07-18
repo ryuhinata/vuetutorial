@@ -18,14 +18,15 @@
 		<Script>
 			Vue.component('todo-item',{
 				props: ["abc"],
-				template: '<li>{{abc.text}}</li>'
+				template: '<li>{{abc.text}} - {{abc.completed? "Completed" : "Incomplete"}}</li>'
 			})
 			var vm = new Vue({
 				el: '#app',
 				data: {
 					todos: [
-					{text:"Buy Insurance"},
-					{text:"Pay Bills"}]
+					{text:"Buy Insurance", completed: false},
+					{text:"Pay Bills", completed: false},
+					{text:"Walk the Dog", completed: true}]
 				}
 			})
 
